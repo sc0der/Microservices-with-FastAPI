@@ -1,14 +1,19 @@
-import imp
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from settings import settings
+from os import environ as env
+from dotenv import load_dotenv
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.DB_USER}:{settings.DB_USER}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_DB}"
+load_dotenv(".route.env")
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+from fastapi import FastAPI
 
-Base = declarative_base()
+SECRET_KEY = env.get('SECRET_KEY')
+ALGORITHM = env.get('ALGORITHM')
+ACCESS_TOKEN_EXPIRE_MINUTES = 1
+
+class Settings:
+    DB_USER = env.get('POSTGRES_USER')
+    DB_PASSWORD = env.get('POSTGRES_PASSWORD')
+    DB_DB = env.get('POSTGRES_DB')
+    DB_HOST = env.get('POSTGRES_HOST')
+    DB_PORT = env.get('POSTGRES_PORT')
+
+settings = Settings()
