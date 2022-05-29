@@ -6,8 +6,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
-from .models import UserModel
-from .db import SessionLocal
+from app.models import UserModel
+from app.db import SessionLocal
 
 
 # to get a string like this run:
