@@ -4,18 +4,18 @@ services:
   routes_service:
     build: ./routes-service/
     env_file:
-      - .env
+      - routes-service/.env
     ports:
-      - "4050:4050"
+      - "4050:8000"
     depends_on:
       - auth_service
 
   auth_service:
     build: ./auth-service/
     env_file:
-      - .env
+      - auth-service/.env
     ports:
-      - "4051:4050"
+      - "4051:8000"
     depends_on:
       - db
 
@@ -30,7 +30,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - .env
+      - routes-service/.env
     ports:
       - 5433:5432
 
